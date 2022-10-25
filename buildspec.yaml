@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: latest
+    commands:
+      - echo "installing..."
+
+  build:
+    commands:
+      - echo "building..."
+
+  post_build:
+    commands:
+      - echo "updating function $FUNC_NAME"
+      - zip $ARTIFACT_KEY *.py
+      - aws s3 cp $ARTIFACT_KEY s3://$BUCKET_NAME/$KEY_PREFIX/$ARTIFACT_KEY
+      - aws lambda update-function-code --function-name $FUNC_NAME --s3-bucket $BUCKET_NAME --s3-key $KEY_PREFIX/$ARTIFACT_KEY
