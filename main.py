@@ -1,3 +1,4 @@
+from sre_constants import SUCCESS
 import boto3
 import json
 
@@ -9,6 +10,7 @@ def handler(event, context):
     for record in event["Records"]:
         product = json.loads(record["body"])
         print(product)
+        print(SUCCESS)
 
     try:
         sns_client.publish(
