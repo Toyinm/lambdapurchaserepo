@@ -1,4 +1,6 @@
 from sre_constants import SUCCESS
+
+from neo4j import Record
 import boto3
 import json
 
@@ -11,6 +13,7 @@ def handler(event, context):
         product = json.loads(record["body"])
         print(product)
         print(SUCCESS)
+        print(Record) 
 
     try:
         sns_client.publish(
